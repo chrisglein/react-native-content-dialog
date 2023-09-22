@@ -4,10 +4,9 @@
   "description": "Fluent dialog for display custom content with title and buttons",
   "main": "src/Dialog.tsx",
   "scripts": {
-    "build": "tsc --declaration --emitDeclarationOnly --outDir dist --jsx \"react-native\"",
+    "types": "tsc --declaration --declarationMap --emitDeclarationOnly --noEmit false --declarationDir dist",
     "lint": "eslint .\\src\\",
-    "typecheck": "tsc --noEmit --jsx \"react-native\"",
-    "prepare": "npm run typecheck && npm run lint"
+    "prepare": "npm run types && npm run lint"
   },
   "repository": {
     "type": "git",
