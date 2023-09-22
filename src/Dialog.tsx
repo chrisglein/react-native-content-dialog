@@ -203,7 +203,6 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
   );
 }
 
-const isDarkMode = false;
 const styles = StyleSheet.create({
   smokeLayer: {
     position: 'absolute',
