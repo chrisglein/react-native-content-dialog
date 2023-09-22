@@ -122,10 +122,10 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
   }, [show, opacityAnimation]);
 
   const populatedButtons = buttons ?? [
-      {
-        title: "OK",
-        onPress: () => {}
-      }];
+    {
+      title: "OK",
+      onPress: () => {}
+    }];
   const buttonList = populatedButtons.map((button, index) =>
     <DialogButton
       key={index}
@@ -137,14 +137,9 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
       }}/>
   );
 
-  // NOT YET IMPLEMENTED: Dialog has an elevation effect done in the XAML source code here:
-  // https://microsoft.visualstudio.com/OS/_git/os.2020?path=/onecoreuap/windows/dxaml/xcp/dxaml/lib/ContentDialog_Partial.cpp&version=GBofficial/main&line=1412&lineEnd=1413&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents
-  //   Under drop shadows, ContentDialog has a larger shadow than normal
-  //   IFC_RETURN(ApplyElevationEffect(m_tpBackgroundElementPart.AsOrNull<IUIElement>().Get(), 0 /* depth */, 128 /* baseElevation */));
-  // That's going to do 2 things:
+  // NOT YET IMPLEMENTED: Dialog has an elevation effect done internally that's going to do 2 things:
   // 1) Set a Z transformation
   // 2) Create a ThemeShadow: https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.media.themeshadow?view=winrt-22621
-  
   return (
     <Popup
       accessibilityLabel={title}
@@ -152,6 +147,7 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
       isLightDismissEnabled={isLightDismissEnabled ?? false}
       onDismiss={() => close()}>
       <View style={{
+          // This isn't correct because if the window is resized we don't re-run this, but it's close enough for now.
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
           justifyContent: 'center',
@@ -200,7 +196,6 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
   )
 }
 
-const isDarkMode = false;
 const styles = StyleSheet.create({
   smokeLayer: {
     position: 'absolute',
