@@ -55,7 +55,7 @@ function DialogButton({title, onPress, isDefault}: DialogButtonProps): JSX.Eleme
           color: 
             isDefault ? 
               pressing ? 
-              PlatformColor('AccentButtonForegroundPressed') :
+                PlatformColor('AccentButtonForegroundPressed') :
                 hovering ? 
                   PlatformColor('AccentButtonForegroundPointerOver') :
                   PlatformColor('AccentButtonForeground') :
@@ -64,9 +64,9 @@ function DialogButton({title, onPress, isDefault}: DialogButtonProps): JSX.Eleme
                 hovering ?
                   PlatformColor('ButtonForegroundPointerOver') :
                   PlatformColor('ButtonForeground')
-      }}>{title}</Text>    
+        }}>{title}</Text>    
     </Pressable>
-  )
+  );
 }
 
 type ContentDialogProps = PropsWithChildren<{
@@ -122,10 +122,10 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
   }, [show, opacityAnimation]);
 
   const populatedButtons = buttons ?? [
-      {
-        title: "OK",
-        onPress: () => {}
-      }];
+    {
+      title: 'OK',
+      onPress: () => {}
+    }];
   const buttonList = populatedButtons.map((button, index) =>
     <DialogButton
       key={index}
@@ -151,7 +151,9 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
       isOpen={!hidden}
       isLightDismissEnabled={isLightDismissEnabled ?? false}
       onDismiss={() => close()}>
-      <View style={{
+      <View style={
+        {
+          // This isn't correct because if the window is resized we don't re-run this, but it's close enough for now.
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
           justifyContent: 'center',
@@ -169,16 +171,17 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
               // scale isn't getting the right centerpoint, which _should_ work: https://github.com/microsoft/react-native-windows/pull/4169/files
               transform: [{scale: scaleAnimation}],
             }]}>
-          {inTransition && <Pressable
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              zIndex: 1,
-            }}
-            onPress={() => {
-              // Intentionally eating clicks while animating
-            }}
+          {inTransition && 
+            <Pressable
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                zIndex: 1,
+              }}
+              onPress={() => {
+                // Intentionally eating clicks while animating
+              }}
             />
           }
           <View style={[styles.dialogTopArea, {flexShrink: 1}]}>
@@ -197,7 +200,7 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
         </Animated.View>
       </View>
     </Popup>
-  )
+  );
 }
 
 const isDarkMode = false;
@@ -262,4 +265,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { ContentDialog }
+export { ContentDialog };
