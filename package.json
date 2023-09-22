@@ -4,7 +4,8 @@
   "description": "Fluent dialog for display custom content with title and buttons",
   "main": "src/Dialog.tsx",
   "scripts": {
-    "typecheck": "tsc --noEmit --jsx \"react-native\""
+    "typecheck": "tsc --noEmit --jsx \"react-native\"",
+    "prepublish": "npm run typecheck"
   },
   "repository": {
     "type": "git",
