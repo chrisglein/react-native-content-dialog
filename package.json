@@ -6,7 +6,8 @@
   "scripts": {
     "types": "tsc --declaration --declarationMap --emitDeclarationOnly --noEmit false --declarationDir dist",
     "lint": "eslint .\\src\\",
-    "prepare": "npm run types && npm run lint"
+    "prepare": "npm run types && npm run lint",
+    "example-windows": "react-native run-windows --sln example\\windows\\example.sln"
   },
   "repository": {
     "type": "git",
@@ -28,8 +29,9 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.14.0",
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
     "@tsconfig/react-native": "^3.0.2",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.22",
@@ -40,7 +42,19 @@
     "eslint-plugin-react": "^7.33.2",
     "react": "18.2.0",
     "react-native": "0.72.4",
-    "react-native-windows": "0.72.4",
-    "typescript": "^5.2.2"
+    "react-native-windows": "0.72.9",
+    "typescript": "^5.2.2",
+    "@react-native/eslint-config": "^0.72.2",
+    "@react-native/metro-config": "^0.72.11",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.2.1",
+    "jest": "^29.2.1",
+    "metro-react-native-babel-preset": "0.76.8",
+    "prettier": "^2.4.1",
+    "react-test-renderer": "18.2.0",
+    "metro-config": "^0.76.7"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
