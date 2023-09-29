@@ -23,13 +23,13 @@ export default function App(): JSX.Element {
       <Button title='Show dialog' onPress={() => {setShowDialog(true)}}/>
       <ContentDialog
         title='This is my dialog title'
-        show={showDialog}>
+        show={showDialog}
         close={() => setShowDialog(false)}>
         <Text>This is my dialog content</Text>
       </ContentDialog>
-    <View/>
+    </View>
   );
-};
+}
 ```
 
-
+See this live in [this Expo Snack](https://snack.expo.dev/IorLLv2f5).
