@@ -145,6 +145,6 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
       </View>
     </ContentDialogHost>
   );
-};
+}
 
 export { ContentDialog };

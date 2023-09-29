@@ -9,7 +9,7 @@ type ContentDialogHostProps = PropsWithChildren<{
   isLightDismissEnabled?: boolean,
   title: string,
 }>;
-function ContentDialogHost({children, show, close, isLightDismissEnabled, title}: ContentDialogHostProps): JSX.Element {
+function ContentDialogHost({children, show, close, title}: ContentDialogHostProps): JSX.Element {
   return (
     <Modal
       accessibilityLabel={title}
@@ -18,6 +18,6 @@ function ContentDialogHost({children, show, close, isLightDismissEnabled, title}
       {children}
     </Modal>
   );
-};
+}
 
 export { ContentDialogHost };

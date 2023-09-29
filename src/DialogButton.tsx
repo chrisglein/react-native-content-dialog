@@ -64,4 +64,4 @@ function DialogButton({title, onPress, isDefault}: DialogButtonProps): JSX.Eleme
 }
 
 export { DialogButton };
-export type { DialogButtonType }
+export type { DialogButtonType };

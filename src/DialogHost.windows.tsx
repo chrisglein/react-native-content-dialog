@@ -17,6 +17,6 @@ function ContentDialogHost({children, show, close, isLightDismissEnabled, title}
       {children}
     </Popup>
   );
-};
+}
 
 export { ContentDialogHost };
