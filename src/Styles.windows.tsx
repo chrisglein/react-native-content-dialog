@@ -1,15 +1,14 @@
 import {
+  PlatformColor,
   StyleSheet,
 } from 'react-native';
-
-const isDarkMode = false;
 
 const styles = StyleSheet.create({
   smokeLayer: {
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: '#4D000000', // ContentDialogSmokeFill
+    backgroundColor: PlatformColor('ContentDialogSmokeFill'),
   },
   dialogTitle: {
     fontSize: 20, // Hardcoded in https://github.com/microsoft/microsoft-ui-xaml/blob/df0800178657c470eb9f25ef185ce906e8da3279/dev/CommonStyles/ContentDialog_themeresources_v1.xaml#L311C174-L311C174
@@ -23,12 +22,12 @@ const styles = StyleSheet.create({
     maxHeight: 756, // ContentDialogMaxHeight
     borderRadius: 8, // OverlayCornerRadius
     borderWidth: 1, // ContentDialogBorderWidth
-    borderColor: 'lightgray', // ContentDialogBorderBrush?
+    borderColor: PlatformColor('ContentDialogBorderBrush'),
     // Technically this is adding overdraw, but it's the way the XAML brushes are set up and is required for dark mode
-    backgroundColor: 'white', // ContentDialogBackground?
+    backgroundColor: PlatformColor('ContentDialogBackground'),
   },
   dialogTopArea: {
-    backgroundColor: isDarkMode ? 'black' : 'white', // ContentDialogTopOverlay -> LayerFillColorAlt
+    backgroundColor: PlatformColor('ContentDialogTopOverlay'),
     paddingLeft: 24, // ContentDialogPadding
     paddingRight: 24, // ContentDialogPadding
     borderTopLeftRadius: 8, // OverlayCornerRadius
@@ -38,9 +37,9 @@ const styles = StyleSheet.create({
     marginVertical: 24, // ContentDialogPadding
   },
   dialogCommandArea: {
-    borderColor: isDarkMode ? '#19000000' : '#0F000000', // ContentDialogSeparatorBorderBrush -> CardStrokeColorDefault
+    borderColor: PlatformColor('ContentDialogSeparatorBorderBrush'),
     borderTopWidth: 1,
-    backgroundColor: isDarkMode ? '#202020' : '#F3F3F3', // ContentDialogBackground?
+    backgroundColor: PlatformColor('ContentDialogBackground'),
     borderBottomLeftRadius: 8, // OverlayCornerRadius
     borderBottomRightRadius: 8, // OverlayCornerRadius
     padding: 24, // ContentDialogPadding
@@ -59,38 +58,38 @@ const styles = StyleSheet.create({
     paddingVertical: 5, // ButtonPadding
     alignItems: 'center',
     borderWidth: 1, // ButtonBorderThemeThickness
-    borderColor: 'lightgray', // AccentButtonBorderBrush -> ControlStrokeColorOnAccentDefault
+    borderColor: PlatformColor('AccentButtonBorderBrush'),
     borderRadius: 4, // ControlCornerRadius
-    backgroundColor: 'white', // ButtonBackground -> SystemControlBackgroundBaseLowBrush?
-  }
+    backgroundColor: PlatformColor('ButtonBackground'),
+  },
 });
 
 const getButtonBackground = (isDefault: boolean, pressing: boolean, hovering: boolean) => {
   return isDefault ? 
     pressing ? 
-      'darkblue' :
+      PlatformColor('AccentButtonBackgroundPressed') :
       hovering ? 
-        'lightblue' : 
-        'blue' :
+        PlatformColor('AccentButtonBackgroundPointerOver') : 
+        PlatformColor('AccentButtonBackground') :
     pressing ? 
-      'gray' :
+      PlatformColor('ButtonBackgroundPressed') :
       hovering ? 
-        'lightgray' :
-        'white';
+        PlatformColor('ButtonBackgroundPointerOver') :
+        PlatformColor('ButtonBackground');
 };
 
 const getButtonForeground = (isDefault: boolean, pressing: boolean, hovering: boolean) => {
   return isDefault ?
     pressing ? 
-      'white' :
+      PlatformColor('AccentButtonForegroundPressed') :
       hovering ? 
-        'white' :
-        'white' :
+        PlatformColor('AccentButtonForegroundPointerOver') :
+        PlatformColor('AccentButtonForeground') :
     pressing ?
-      'black' :
+      PlatformColor('ButtonForegroundPressed') :
       hovering ?
-        'black' :
-        'black';
+        PlatformColor('ButtonForegroundPointerOver') :
+        PlatformColor('ButtonForeground');
 };
 
 export { styles, getButtonBackground, getButtonForeground };
