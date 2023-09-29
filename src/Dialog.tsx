@@ -8,28 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import {Popup} from 'react-native-windows';
 import type { DialogButtonType } from './DialogButton';
 import { DialogButton } from './DialogButton';
+import { ContentDialogHost } from './DialogHost';
 import { styles } from './Styles';
-
-type ContentDialogHostProps = PropsWithChildren<{
-  show: boolean,
-  close: () => void,
-  isLightDismissEnabled?: boolean,
-  title: string,
-}>;
-function ContentDialogHost({children, show, close, isLightDismissEnabled, title}: ContentDialogHostProps): JSX.Element {
-  return (
-    <Popup
-      accessibilityLabel={title}
-      isOpen={show}
-      isLightDismissEnabled={isLightDismissEnabled}
-      onDismiss={() => close()}>
-      {children}
-    </Popup>
-  );
-};
 
 type ContentDialogProps = PropsWithChildren<{
   show: boolean,
