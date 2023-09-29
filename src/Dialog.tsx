@@ -3,71 +3,15 @@ import {
   Animated,
   Dimensions,
   Easing,
-  PlatformColor,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
-import {Popup} from 'react-native-windows';
-
-type DialogButtonType = {
-  title: string,
-  onPress: () => void,
-}
-
-type DialogButtonProps = {
-  title: string,
-  onPress: () => void,
-  isDefault?: boolean,
-}
-function DialogButton({title, onPress, isDefault}: DialogButtonProps): JSX.Element {
-  const [hovering, setHovering] = React.useState(false);
-  const [pressing, setPressing] = React.useState(false);
-
-  return (
-    <Pressable
-      accessibilityLabel={title}
-      accessibilityRole='button'
-      onPress={onPress}
-      onPressIn={() => setPressing(true)}
-      onPressOut={() => setPressing(false)}
-      onHoverIn={() => setHovering(true)}
-      onHoverOut={() => setHovering(false)}
-      style={[styles.dialogButton, {
-        backgroundColor: 
-          isDefault ? 
-            pressing ? 
-              PlatformColor('AccentButtonBackgroundPressed') :
-              hovering ? 
-                PlatformColor('AccentButtonBackgroundPointerOver') : 
-                PlatformColor('AccentButtonBackground') :
-            pressing ? 
-              PlatformColor('ButtonBackgroundPressed') :
-              hovering ? 
-                PlatformColor('ButtonBackgroundPointerOver') :
-                PlatformColor('ButtonBackground')
-      }]}>
-      <Text
-        accessible={false}
-        style={{
-          color: 
-            isDefault ? 
-              pressing ? 
-                PlatformColor('AccentButtonForegroundPressed') :
-                hovering ? 
-                  PlatformColor('AccentButtonForegroundPointerOver') :
-                  PlatformColor('AccentButtonForeground') :
-              pressing ?
-                PlatformColor('ButtonForegroundPressed') :
-                hovering ?
-                  PlatformColor('ButtonForegroundPointerOver') :
-                  PlatformColor('ButtonForeground')
-        }}>{title}</Text>    
-    </Pressable>
-  );
-}
+import type { DialogButtonType } from './DialogButton';
+import { DialogButton } from './DialogButton';
+import { ContentDialogHost } from './DialogHost';
+import { styles } from './Styles';
 
 type ContentDialogProps = PropsWithChildren<{
   show: boolean,
@@ -146,11 +90,11 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
   // 2) Create a ThemeShadow: https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.media.themeshadow?view=winrt-22621
   
   return (
-    <Popup
-      accessibilityLabel={title}
-      isOpen={!hidden}
+    <ContentDialogHost
+      title={title}
+      show={!hidden}
       isLightDismissEnabled={isLightDismissEnabled ?? false}
-      onDismiss={() => close()}>
+      close={close}>
       <View style={
         {
           // This isn't correct because if the window is resized we don't re-run this, but it's close enough for now.
@@ -199,69 +143,8 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
           </View>
         </Animated.View>
       </View>
-    </Popup>
+    </ContentDialogHost>
   );
 }
-
-const styles = StyleSheet.create({
-  smokeLayer: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: PlatformColor('ContentDialogSmokeFill'),
-  },
-  dialogTitle: {
-    fontSize: 20, // Hardcoded in https://github.com/microsoft/microsoft-ui-xaml/blob/df0800178657c470eb9f25ef185ce906e8da3279/dev/CommonStyles/ContentDialog_themeresources_v1.xaml#L311C174-L311C174
-    fontWeight: '600', // SemiBold, hardcoded in original file
-    marginBottom: 12, // ContentDialogTitleMargin
-  },
-  dialogBackground: {
-    minWidth: 320, // ContentDialogMinWidth
-    maxWidth: 548, // ContentDialogMaxWidth
-    minHeight: 184, // ContentDialogMinHeight
-    maxHeight: 756, // ContentDialogMaxHeight
-    borderRadius: 8, // OverlayCornerRadius
-    borderWidth: 1, // ContentDialogBorderWidth
-    borderColor: PlatformColor('ContentDialogBorderBrush'),
-    // Technically this is adding overdraw, but it's the way the XAML brushes are set up and is required for dark mode
-    backgroundColor: PlatformColor('ContentDialogBackground'),
-  },
-  dialogTopArea: {
-    backgroundColor: PlatformColor('ContentDialogTopOverlay'),
-    paddingLeft: 24, // ContentDialogPadding
-    paddingRight: 24, // ContentDialogPadding
-    borderTopLeftRadius: 8, // OverlayCornerRadius
-    borderTopRightRadius: 8, // OverlayCornerRadius
-  },
-  dialogContentArea: {
-    marginVertical: 24, // ContentDialogPadding
-  },
-  dialogCommandArea: {
-    borderColor: PlatformColor('ContentDialogSeparatorBorderBrush'),
-    borderTopWidth: 1,
-    backgroundColor: PlatformColor('ContentDialogBackground'),
-    borderBottomLeftRadius: 8, // OverlayCornerRadius
-    borderBottomRightRadius: 8, // OverlayCornerRadius
-    padding: 24, // ContentDialogPadding
-  },
-  dialogButtons: {
-    alignSelf: 'stretch',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    gap: 8, // ContentDialogButtonSpacing
-  },
-  dialogButton: {
-    flexGrow: 1,
-    flex: 1,
-    paddingHorizontal: 8, // ButtonPadding
-    paddingVertical: 5, // ButtonPadding
-    alignItems: 'center',
-    borderWidth: 1, // ButtonBorderThemeThickness
-    borderColor: PlatformColor('AccentButtonBorderBrush'),
-    borderRadius: 4, // ControlCornerRadius
-    backgroundColor: PlatformColor('ButtonBackground'),
-  },
-});
 
 export { ContentDialog };
