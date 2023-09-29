@@ -13,6 +13,24 @@ import type { DialogButtonType } from './DialogButton';
 import { DialogButton } from './DialogButton';
 import { styles } from './Styles';
 
+type ContentDialogHostProps = PropsWithChildren<{
+  show: boolean,
+  close: () => void,
+  isLightDismissEnabled?: boolean,
+  title: string,
+}>;
+function ContentDialogHost({children, show, close, isLightDismissEnabled, title}: ContentDialogHostProps): JSX.Element {
+  return (
+    <Popup
+      accessibilityLabel={title}
+      isOpen={show}
+      isLightDismissEnabled={isLightDismissEnabled}
+      onDismiss={() => close()}>
+      {children}
+    </Popup>
+  );
+};
+
 type ContentDialogProps = PropsWithChildren<{
   show: boolean,
   close: () => void;
@@ -90,11 +108,11 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
   // 2) Create a ThemeShadow: https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.media.themeshadow?view=winrt-22621
   
   return (
-    <Popup
-      accessibilityLabel={title}
-      isOpen={!hidden}
+    <ContentDialogHost
+      title={title}
+      show={!hidden}
       isLightDismissEnabled={isLightDismissEnabled ?? false}
-      onDismiss={() => close()}>
+      close={close}>
       <View style={
         {
           // This isn't correct because if the window is resized we don't re-run this, but it's close enough for now.
@@ -143,8 +161,8 @@ function ContentDialog({children, show, close, isLightDismissEnabled, title, but
           </View>
         </Animated.View>
       </View>
-    </Popup>
+    </ContentDialogHost>
   );
-}
+};
 
 export { ContentDialog };
