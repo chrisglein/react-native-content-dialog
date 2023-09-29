@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  PlatformColor,
   Pressable,
   Text,
 } from 'react-native';
-import { styles } from './Styles';
+import { styles, getButtonBackground, getButtonForeground } from './Styles';
 
 type DialogButtonType = {
   title: string,
@@ -30,34 +29,12 @@ function DialogButton({title, onPress, isDefault}: DialogButtonProps): JSX.Eleme
       onHoverIn={() => setHovering(true)}
       onHoverOut={() => setHovering(false)}
       style={[styles.dialogButton, {
-        backgroundColor: 
-          isDefault ? 
-            pressing ? 
-              PlatformColor('AccentButtonBackgroundPressed') :
-              hovering ? 
-                PlatformColor('AccentButtonBackgroundPointerOver') : 
-                PlatformColor('AccentButtonBackground') :
-            pressing ? 
-              PlatformColor('ButtonBackgroundPressed') :
-              hovering ? 
-                PlatformColor('ButtonBackgroundPointerOver') :
-                PlatformColor('ButtonBackground')
+        backgroundColor: getButtonBackground(isDefault ?? false, pressing, hovering)
       }]}>
       <Text
         accessible={false}
         style={{
-          color: 
-            isDefault ? 
-              pressing ? 
-                PlatformColor('AccentButtonForegroundPressed') :
-                hovering ? 
-                  PlatformColor('AccentButtonForegroundPointerOver') :
-                  PlatformColor('AccentButtonForeground') :
-              pressing ?
-                PlatformColor('ButtonForegroundPressed') :
-                hovering ?
-                  PlatformColor('ButtonForegroundPointerOver') :
-                  PlatformColor('ButtonForeground')
+          color: getButtonForeground(isDefault ?? false, pressing, hovering)
         }}>{title}</Text>    
     </Pressable>
   );
