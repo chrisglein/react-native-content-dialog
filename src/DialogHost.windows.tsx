@@ -1,7 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import {
-  Modal,
-} from 'react-native';
+import {Popup} from 'react-native-windows';
 
 type ContentDialogHostProps = PropsWithChildren<{
   show: boolean,
@@ -11,12 +9,13 @@ type ContentDialogHostProps = PropsWithChildren<{
 }>;
 function ContentDialogHost({children, show, close, isLightDismissEnabled, title}: ContentDialogHostProps): JSX.Element {
   return (
-    <Modal
+    <Popup
       accessibilityLabel={title}
-      visible={show}
-      onRequestClose={() => close()}>
+      isOpen={show}
+      isLightDismissEnabled={isLightDismissEnabled}
+      onDismiss={() => close()}>
       {children}
-    </Modal>
+    </Popup>
   );
 };
 
